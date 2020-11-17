@@ -19,5 +19,6 @@ from filemanager import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('memes/', views.MemeViewSet)
+    path('memes/', views.MemeViewSet),
+    path('download/<path:path>', views.download)
 ]

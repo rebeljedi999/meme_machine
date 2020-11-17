@@ -1,12 +1,15 @@
 from django.shortcuts import render
 
 from django.http.response import JsonResponse
-from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from filemanager.models import Meme
 from filemanager.serializers import MemeSerializer
+from filemanager.forms import UploadFileForm
 from rest_framework.decorators import api_view
+from django.conf import settings
+import os
+from django.http import HttpResponse, Http404
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -23,21 +26,14 @@ def MemeViewSet(request):
 
     # POST request handler
     elif request.method == 'POST':
-        meme_data = JSONParser().parse(request)
-        if 'id' in meme_data.keys():
-            meme_id = meme_data['id']
-        else:
-            meme_id = None
-        # check if id is provided, then run update
-        if meme_id is not None:
-            meme_f = Meme.objects.all().filter(photo=meme_id)[0]
-            meme_serializer = MemeSerializer(meme_f, data=meme_data)
-        else:
-            meme_serializer = MemeSerializer(data=meme_data)
-        if meme_serializer.is_valid():
-            meme_serializer.save()
-            return JsonResponse(meme_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(meme_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = form.cleaned_data.get("file")
+            title = form.cleaned_data.get("title")
+            instance = Meme(image=file, user=request.user, title=title)
+            instance.save()
+            return JsonResponse({'message': 'File saved!'}, status=status.HTTP_202_ACCEPTED)
+        return JsonResponse({'message': 'Bad Request'}, status=status.HTTP_400_BAD_REQUEST)
 
     # DELETE request handler
     elif request.method == 'DELETE':
@@ -51,3 +47,13 @@ def MemeViewSet(request):
             return JsonResponse({'message': '{} meme entries were deleted successfully!'.format(count[0])},
                                 status=status.HTTP_204_NO_CONTENT)
         return JsonResponse({'message': 'Invalid meme entry!'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+def download(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read())
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
