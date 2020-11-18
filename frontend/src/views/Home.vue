@@ -1,16 +1,18 @@
 <template>
-  <div class="EditorComponent">
-    <EditorComponent/>
-  </div>
+  <v-main>
+    <div class="EditorComponent">
+      <EditorComponent />
+    </div>
+  </v-main>
 </template>
 
 <script>
-import EditorComponent from '@/components/EditorComponent.vue'
+import EditorComponent from "@/components/EditorComponent.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    EditorComponent
-  }
-}
+    EditorComponent,
+  },
+};
 </script>
