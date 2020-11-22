@@ -1,0 +1,32 @@
+Here are the endpoints that are available:
+
+Endpoint "memes/":
+    GET Request:
+        Params:
+            user: integer id of user who's photos are to be returned
+
+        Response: Will return JSON object that looks like:
+            {
+                "id": integer id of photo
+                "title": up to 70 character string that is the title associated with the image
+                "user": user ID that owns the image
+                "image": URL to image on server
+            }
+    POST Request:
+        Params: Must be in the format of a form!
+            file: file to upload
+            title: String title of image
+
+            It will use the user ID of whoever is logged in!
+
+        Response: Will return a HTTP 202 if it is a good request
+
+    DELETE Request:
+        Params:
+            id: ID of meme to delete
+
+        Response: Will return a HTTP 204 if it is successful.
+
+Endpoint "download/":
+    GET Request:
+        Passing url from a meme after "download" will return the image for download.
