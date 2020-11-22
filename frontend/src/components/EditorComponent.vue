@@ -34,6 +34,9 @@
             />
             <v-btn v-on:click="textMode()">Text Mode</v-btn>
             <v-btn v-on:click="download()">Download Image</v-btn>
+            <v-btn v-on:click="this.$refs.editor.redo()">Redo</v-btn>
+            <v-btn v-on:click="this.$refs.editor.undo()"> Undo</v-btn>
+            <v-btn v-on:click="this.$refs.editor.clear()">Clear</v-btn>
           </v-sheet>
         </v-col>
       </v-row>
