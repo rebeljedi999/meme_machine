@@ -26,12 +26,9 @@ SECRET_KEY = 'mop^4ad&w&xkyxkq&tnik@9fa894_(9#5a$2y&40feoa2eu@8f'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
-
-# Application definition
-
 CORS_ORIGIN_ALLOW_ALL = True
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,9 +53,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8081',
+    'http://localhost:8080',
 )
 ROOT_URLCONF = 'backend.urls'
 
