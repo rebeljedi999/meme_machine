@@ -6,13 +6,17 @@ from rest_framework import status
 from filemanager.models import Meme
 from filemanager.serializers import MemeSerializer
 from filemanager.forms import UploadFileForm
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
 import os
 from django.http import HttpResponse, Http404
 
 
 @api_view(['GET', 'POST', 'DELETE'])
+@authentication_classes([TokenAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
 def MemeViewSet(request):
     if request.method == 'GET':
         memes = Meme.objects.all()
