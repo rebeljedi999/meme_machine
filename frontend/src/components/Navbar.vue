@@ -7,11 +7,11 @@
           <span>Meme Machine</span>
         </v-btn>
       </v-toolbar-title>
-      <v-btn color="grey" class="btn" small>
-        <span>Button 1</span>
+      <v-btn color="grey" class="btn" small to="/Login">
+        <span>Login</span>
       </v-btn>
-      <v-btn color="grey" class="btn" small>
-        <span>Button 2</span>
+      <v-btn color="grey" class="btn" small v-on:click="logout()">
+        <span>Logout</span>
       </v-btn>
       <v-btn color="grey" class="btn" small>
         <span>Button 3</span>

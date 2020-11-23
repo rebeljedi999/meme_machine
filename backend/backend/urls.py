@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from filemanager import views
+from .views import AuthToken
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('memes/', views.MemeViewSet),
-    path('download/<path:path>', views.download)
+    path('download/<path:path>', views.download),
+    path('auth/', AuthToken.as_view())
 ]
