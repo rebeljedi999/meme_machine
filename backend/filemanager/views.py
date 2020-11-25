@@ -59,5 +59,6 @@ def download(request, path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read())
             response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            response['Content-type'] = 'image'
             return response
     raise Http404

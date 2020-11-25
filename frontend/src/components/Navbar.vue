@@ -13,8 +13,8 @@
       <v-btn color="grey" class="btn" small v-on:click="logout()">
         <span>Logout</span>
       </v-btn>
-      <v-btn color="grey" class="btn" small>
-        <span>Button 3</span>
+      <v-btn color="grey" class="btn" small to="/SavedImages">
+        <span>Saved Images</span>
       </v-btn>
       </v-toolbar>
     </div>
@@ -22,7 +22,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      localStorage.removeItem("user-token");
+      localStorage.removeItem("user-id");
+    }
+  }
+};
 </script>
 
 <style scoped>

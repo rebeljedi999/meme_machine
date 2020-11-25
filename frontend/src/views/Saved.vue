@@ -10,7 +10,7 @@
 import SavedImages from "@/components/SavedImages.vue";
 
 export default {
-  name: "SavedImages",
+  name: "Saved",
   components: {
     SavedImages,
   },
